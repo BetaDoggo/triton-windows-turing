@@ -19,7 +19,7 @@ Some triton features have been disabled on turing since the release of 3.3, whic
 First remove any existing triton, then install this wheel:
 ```
 python.exe -m pip uninstall -y triton triton-windows
-python.exe -m pip install <The path to the wheel>
+python.exe -m pip install https://github.com/BetaDoggo/triton-windows-turing/releases/download/wheel/triton_windows-3.7.1-cp311-cp311-win_amd64.whl
 ```
 
 ### **IMPORTANT**, for portable install:
