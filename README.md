@@ -35,3 +35,25 @@ Here's how to get them:
 3. Create `python_embeded\libs\` and copy `python311.lib` and `python3.lib` into it.
 4. Pray
 
+## How to build your own (llm summary of the process, blame china if it doesn't work)
+
+Requirements: Windows x64, Visual Studio 2022 Build Tools with **MSVC ≥ 14.44** and
+the Windows 11 SDK, an NVIDIA CUDA toolkit, and Python 3.11.
+
+1. Get the source:
+   ```
+   git clone -b release/3.7.x-windows https://github.com/triton-lang/triton-windows.git
+   cd triton-windows
+   ```
+2. Apply the one-line patch in
+   `lib/Dialect/TritonGPU/Transforms/AccelerateMatmul.cpp`:
+
+   `if (computeCapability < 80)` → `if (computeCapability < 75)`.
+3. From an **x64 Native Tools Command Prompt for VS 2022** (this puts cl/cmake/ninja
+   and the Windows SDK on PATH), install the build deps and build:
+   ```
+   python -m pip install "cmake>=3.20,<4.0" "pybind11>=2.13.1"
+   python setup.py bdist_wheel
+   ```
+   The build auto-downloads LLVM, TinyCC, and a CUDA `ptxas`; the wheel is written to
+   `dist\`.
